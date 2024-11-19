@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: GeenGramVer1
+  datasource:
+    url: jdbc:mariadb://localhost/greengram_ver1
+    username: root
+    password: green502
+
+mybatis:
+  mapper-locations: xml/**/*.xml
+
+springdoc:
+  swagger-ui:
+    defaultModelExpandDepth: 10
+    display-request-duration: true
+    operations-shorter: method
+    path: /swagger
+
+
