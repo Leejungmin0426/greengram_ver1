@@ -1,13 +1,26 @@
+#custom property(절대경로 Apsolute Path)
+file:
+  directory: D:/LJM/GeenGramVer1/
+
+
+#mybatis setting
+mybatis:
+  mapper-locations: xml/**/*.xml
+
 spring:
   application:
-    name: GeenGramVer1
+    name: GreenGramVer1
+
+  # DB setting
   datasource:
     url: jdbc:mariadb://localhost/greengram_ver1
     username: root
     password: green502
 
-mybatis:
-  mapper-locations: xml/**/*.xml
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
 
 springdoc:
   swagger-ui:
@@ -15,5 +28,5 @@ springdoc:
     display-request-duration: true
     operations-shorter: method
     path: /swagger
-
-
+  cache:
+    disabled: true
