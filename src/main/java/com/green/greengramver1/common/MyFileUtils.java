@@ -26,10 +26,17 @@ public class MyFileUtils {
     // D:\LJM\GeenGramVer1/ddd/aaa
     //디렉토리 생성
     public String makeFolders(String path) {
-        File file = new File(uploadPath, path);
-        file.mkdirs();
+        File file = new File(uploadPath, path); // 생성자 호출, String 타입 , 아규먼트가 인자- 인자는 보내는 값이고 이 코드는 2개의 생성자 인자를 보내고 있다.
+        if(!file.exists()) { // 객체화 하고 주소값. (file.) 으로 호출했기 때문에 static 아니고 인스턴트 변수
+            // 파라미터 없음 >> 호출 때 인자를 보내지 않았기 때문에
+            // 리턴타입은 boolean! if() 안에서 호출했기 때문에
+            // 메소드명은 exists
+
+            file.mkdirs(); // 존재하지 않는다면 생성한다. 라서 !을 붙여줌
+        }
         return file.getAbsolutePath();
     }
+
 
     //파일명에서 확장자 추출
     public String getExt(String fileName) {
@@ -57,14 +64,5 @@ public class MyFileUtils {
         mf.transferTo(file);
     }
 
-}
-
-
-class Test {
-    public static void main(String[] args) {
-        MyFileUtils myFileUtils = new MyFileUtils("C:/temp");
-        String randomFileName = myFileUtils.makeRandomFileName("sdvkljsdfajkldsfjkldsfljk.png");
-        System.out.println(randomFileName);
-    }
 }
 

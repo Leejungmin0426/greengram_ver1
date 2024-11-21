@@ -23,7 +23,7 @@ public class UserController {
     /*
     파일 + Data
         파일 업로드 시에는 RequestBody를 사용할 수 없음.
-        RequestPart 애노테이션 사용해야 함
+        RequestPart 애노테이션 사용해야 함 (required = true)가 기본값, required = false를 넣으므로써 pic 파일이 안 들어와도 실행이 되도록.
      */
     @PostMapping("sign-up")
     @Operation(summary = "회원 가입")
@@ -40,7 +40,7 @@ public class UserController {
 
     @PostMapping("sign-in")
     @Operation(summary = "로그인")
-    public ResultResponse<UserSignInRes> signIn(@RequestBody UserSignInReq p) { //값 받을 때
+    public ResultResponse<UserSignInRes> signIn(@RequestBody UserSignInReq p) { //값 받을 때, @RequestBody만 파라미터명이 중요하지 않음. 키값 중요
         UserSignInRes res = service.postSignIn(p);
         return ResultResponse.<UserSignInRes>builder()
                 .resultMessage(res.getMessage())

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.green.greengramver1.feed.FeedMapper">
+
+    <insert id="insFeed" useGeneratedKeys="true" keyProperty="feedId">
+
+        INSERT INTO feed
+        SET writer_user_id = #{writerUserId}
+        , location = #{location}
+        , contents = #{contents}
+
+
+    </insert>
+
+    <insert id="insFeedPic">
+        Insert Into feed_pics
+        set feed_id = #{feedId}
+        , pic = #{pic}
+    </insert>
+
+
+    <!--
+    feed_pics 테이블 무시
+    -->
+    <select id="selFeedList">
+
+        SELECT
+        B.user_id AS writerId,
+        if(B.nick_name IS NULL, B.uid, B.nick_name) As writerNm,
+        B.pic AS writerPic,
+        A.feed_id AS feedId,
+        A.contents,
+        A.location,
+        A.created_at AS createdAt
+        FROM feed A
+        JOIN user B
+        ON A.writer_user_id = B.user_id
+        ORDER BY feedId DESC
+        LIMIT #{startIdx}, #{size}
+    </select>
+
+
+
+   <!--  ///////////////////////////// feed_id //////////////////////////////////// -->
+
+    <select id="selFeedPicList">
+
+        SELECT pic
+        FROM Feed_pics
+        WHERE feed_id=#{feedId}
+    </select>
+
+
+</mapper>

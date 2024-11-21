@@ -9,4 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     int insUser(UserInsReq p);
     UserSignInRes selUserForSignIn (UserSignInReq p);
+
 }
