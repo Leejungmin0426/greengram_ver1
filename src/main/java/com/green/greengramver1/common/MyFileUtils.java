@@ -49,7 +49,7 @@ public class MyFileUtils {
 
     public String makeRandomFileName(MultipartFile file) {
         return makeRandomFileName(file.getOriginalFilename());
-    }
+    } // 확장자 알아내려고 오리지널 파일명 알아내려고 하는 거...
 
     //파일을 원하는 경로에 저장
     public void transferTo(MultipartFile mf, String path) throws IOException {
