@@ -35,12 +35,12 @@ public class FeedController {
      */
 
     @GetMapping
-    public ResultResponse<List<FeedGetRes>> getFeedList(@ParameterObject @ModelAttribute FeedGetReq p){ // ParameterObject는 swagger 라서 넣는 것, 안 넣어도 작동 함
+    public ResultResponse<List<FeedGetRes>> getFeedList(@ParameterObject @ModelAttribute FeedGetReq p) {
+        log.info("p: {}", p);
         List<FeedGetRes> list = service.getFeedList(p);
-        log.info("p = {}", p);
         return ResultResponse.<List<FeedGetRes>>builder()
-            .resultMessage(String.format("%d rows", list.size()))
-            .resultData(list)
-            .build();
+                .resultMessage(String.format("%d rows", list.size()))
+                .resultData(list)
+                .build();
     }
 }
