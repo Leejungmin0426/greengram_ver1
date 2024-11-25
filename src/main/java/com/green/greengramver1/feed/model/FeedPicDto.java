@@ -11,4 +11,5 @@ import java.util.List;
 public class FeedPicDto {
     private long feedId;
     private String pic;
+
 }

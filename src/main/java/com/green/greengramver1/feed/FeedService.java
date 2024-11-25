@@ -1,7 +1,9 @@
 package com.green.greengramver1.feed;
 
 import com.green.greengramver1.common.MyFileUtils;
-import com.green.greengramver1.feed.model.*;
+import com.green.greengramver1.feed.model.FeedPicDto;
+import com.green.greengramver1.feed.model.FeedPostReq;
+import com.green.greengramver1.feed.model.FeedPostRes;
 import com.green.greengramver1.user.model.UserSignInReq;
 import com.green.greengramver1.user.model.UserSignInRes;
 import lombok.RequiredArgsConstructor;
@@ -54,28 +56,13 @@ public class FeedService {
         }
 
 
-        FeedPostRes res = new FeedPostRes();
+            FeedPostRes res = new FeedPostRes();
 
 
-        // 삽입 성공 - 응답 객체 구성
-        res.setFeedId(p.getFeedId()); // 업로드된 피드 ID를 응답에 포함
-        res.setPics(picsss);
-        res.setMessage("업로드 성공!");
-        return res;
-    }
-
-
-    public List<FeedGetRes> getFeedList(FeedGetReq p) {
-
-        // 매퍼를 통해 데이터베이스에서 게시글 목록 조회
-        List<FeedGetRes> list = mapper.selFeedList(p);
-
-
-        for (FeedGetRes res : list) {
-            List<String> picList = mapper.selFeedPicList(res.getFeedId());
-            res.setPics(picList);
-
+            // 삽입 성공 - 응답 객체 구성
+            res.setFeedId(p.getFeedId()); // 업로드된 피드 ID를 응답에 포함
+            res.setPics(picsss);
+            res.setMessage("업로드 성공!");
+            return res;
         }
-            return list; // 결과 반환
     }
-}
