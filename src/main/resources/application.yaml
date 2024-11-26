@@ -1,9 +1,10 @@
-#custom property(절대경로 Apsolute Path)
+# custom property (절대경로 Absolute Path)
 file:
-  directory: D:/LJM/GeenGramVer1/
+  directory: D:/2024-02/download/greengram_ver1
 
+default-page-size: 20
 
-#mybatis setting
+# mybatis setting
 mybatis:
   mapper-locations: xml/**/*.xml
 
@@ -12,15 +13,10 @@ mybatis:
 #  servlet:
 #    context-path: /api
 
-
-
 spring:
-  application:
-    name: GreenGramVer1
-
   # DB setting
   datasource:
-    url: jdbc:mariadb://localhost/greengram_ver1
+    url: jdbc:mariadb://localhost:3306/greengram_ver1
     username: root
     password: green502
 
@@ -28,12 +24,13 @@ spring:
     multipart:
       max-file-size: 15MB
 
-
 springdoc:
   swagger-ui:
-    defaultModelExpandDepth: 10
+    default-model-expand-depth: 10
     display-request-duration: true
-    operations-shorter: method
+    groups-order: asc
+    operations-sorter: method
     path: /swagger
+    tags-sorter: alpha
   cache:
     disabled: true

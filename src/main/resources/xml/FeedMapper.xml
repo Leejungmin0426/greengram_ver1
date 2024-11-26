@@ -1,22 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?> <!-- url?key=value&key2=value2 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.green.greengramver1.feed.FeedMapper">
 
-    <insert id = "insFeed" useGeneratedKeys="true" keyProperty="feedId">
-
+    <insert id="insFeed" useGeneratedKeys="true" keyProperty="feedId">
         INSERT INTO feed
-        SET writer_user_id = #{writerUserId}
-        , location = #{location}
-        , contents = #{contents}
-
+           SET writer_user_id = #{writerUserId}
+             , contents = #{contents}
+             , location = #{location}
     </insert>
+    <!--
+        (사진은 무시하세요), feed_pics테이블은 무시
 
-    <insert id = "insFeedPic">
-        Insert Into feed_pics
-        set feed_id = #{feedId}
-        , pic = #{pic}
-    </insert>
+        feed_id, 작성자userid값, 작성자닉네임, 작성자uid, 작성자프로필사진파일명, contents, location, created_at값을
+        정렬은 최신글이 가장 위에 오도록
+        페이징 처리
+        가져오는 쿼리문 작성
+    -->
+    <select id="selFeedList">
+        SELECT A.feed_id AS feedId, A.contents, A.location, A.created_at AS createdAt
+             , B.user_id AS writerId
+             , if(B.nick_name IS NULL, B.uid, B.nick_name) AS writerNm
+             , B.pic AS writerPic
+          FROM feed A
+         INNER JOIN user B
+            ON A.writer_user_id = B.user_id
+         ORDER BY A.feed_id DESC
+         LIMIT #{startIdx}, #{size}
+    </select>
 
 
     <!-- ///////////////////////////////// feed_pics //////////////////////////// -->
@@ -24,14 +35,14 @@
 
     <insert id="insFeedPic">
         INSERT INTO feed_pics
-        SET feed_id = #{feedId}
-        , pic = #{pic}
+           SET feed_id = #{feedId}
+             , pic = #{pic}
     </insert>
 
     <select id="selFeedPicList">
         SELECT pic
-        FROM feed_pics
-        WHERE feed_id = #{feedId}
+          FROM feed_pics
+         WHERE feed_id = #{feedId}
     </select>
 
 </mapper>

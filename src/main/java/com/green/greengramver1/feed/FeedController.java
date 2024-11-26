@@ -6,7 +6,6 @@ import com.green.greengramver1.feed.model.FeedGetRes;
 import com.green.greengramver1.feed.model.FeedPostReq;
 import com.green.greengramver1.feed.model.FeedPostRes;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
@@ -24,16 +23,19 @@ public class FeedController {
     private final FeedService service;
 
     @PostMapping
-    public ResultResponse<FeedPostRes> postFeed(@RequestPart List<MultipartFile> pics,
-                                                @RequestPart FeedPostReq p) {
+    public ResultResponse<FeedPostRes> postFeed(@RequestPart List<MultipartFile> pics
+                                              , @RequestPart FeedPostReq p) {
         FeedPostRes res = service.postFeed(pics, p);
-        return ResultResponse.<FeedPostRes>builder().resultMessage("피드 등록 완료").resultData(res).build();
+        return ResultResponse.<FeedPostRes>builder()
+                .resultMessage("피드 등록 완료")
+                .resultData(res)
+                .build();
     }
 
     /*
-    QueryString - URL에 KEY, VALUE 값을 포함한다.
+    QueryString - URL에 KEY, VALUE값을 포함한다.
+    url?key=value&key2=value2 쿼리문
      */
-
     @GetMapping
     public ResultResponse<List<FeedGetRes>> getFeedList(@ParameterObject @ModelAttribute FeedGetReq p) {
         log.info("p: {}", p);
@@ -43,4 +45,5 @@ public class FeedController {
                 .resultData(list)
                 .build();
     }
+
 }

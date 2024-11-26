@@ -8,16 +8,13 @@ import java.util.List;
 @Getter
 @Setter
 public class FeedGetRes {
+    private long feedId;
     private String contents;
     private String location;
+    private String createdAt;
     private long writerId;
     private String writerNm;
     private String writerPic;
-    private long feedId;
-    private String createdAt;
 
-    private List<String> pics;
-
+    private List<String> pics; // 1 대 다 데이터
 }
-
-

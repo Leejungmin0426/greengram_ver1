@@ -18,25 +18,26 @@ public class MyFileUtils {
     @Value("${file.directory}")은
     yaml 파일에 있는 file.directory 속성에 저장된 값을 생성자 호출할 때 값을 넣어준다.
      */
-    public MyFileUtils(@Value("${file.directory}") String uploadPath){
+
+    public MyFileUtils(@Value("${file.directory}") String uploadPath) {
         log.info("MyFileUtils - 생성자: {}", uploadPath);
         this.uploadPath = uploadPath;
     }
+
     // path = "ddd/aaa"
-    // D:\LJM\GeenGramVer1/ddd/aaa
+    // D:/2024-02/download/greengram_ver1/ddd/aaa
     //디렉토리 생성
     public String makeFolders(String path) {
-        File file = new File(uploadPath, path); // 생성자 호출, String 타입 , 아규먼트가 인자- 인자는 보내는 값이고 이 코드는 2개의 생성자 인자를 보내고 있다.
-        if(!file.exists()) { // 객체화 하고 주소값. (file.) 으로 호출했기 때문에 static 아니고 인스턴트 변수
-            // 파라미터 없음 >> 호출 때 인자를 보내지 않았기 때문에
-            // 리턴타입은 boolean! if() 안에서 호출했기 때문에
-            // 메소드명은 exists
-
-            file.mkdirs(); // 존재하지 않는다면 생성한다. 라서 !을 붙여줌
+        File file = new File(uploadPath,  path);
+        // static 아님  >>  객체화하고 주소값.(file.)으로 호출했기 때문에
+        // 리턴타입은 boolean  >>  if()안에서 호출했기 때문에
+        // 파라미터는 없음   >>  호출 때 인자를 보내지 않았기 때문에
+        // 메소드명은  >>  exists였다.
+        if(!file.exists()) {
+            file.mkdirs();
         }
         return file.getAbsolutePath();
     }
-
 
     //파일명에서 확장자 추출
     public String getExt(String fileName) {
@@ -55,14 +56,14 @@ public class MyFileUtils {
     }
 
     public String makeRandomFileName(MultipartFile file) {
-        return makeRandomFileName(file.getOriginalFilename());
-    } // 확장자 알아내려고 오리지널 파일명 알아내려고 하는 거...
+        String originalFileName = file.getOriginalFilename();
+        return makeRandomFileName(originalFileName);
+    }
 
     //파일을 원하는 경로에 저장
     public void transferTo(MultipartFile mf, String path) throws IOException {
         File file = new File(uploadPath, path);
-        mf.transferTo(file);
+        mf.transferTo(file); // 여기서도 IOExection 예외를 던지고 있어서 호출 하는 쪽에서도 받아서 처리하던지 던지던지 해야한다. 그래서 throws 처리함.
     }
 
 }
-
